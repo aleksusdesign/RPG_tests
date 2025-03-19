@@ -30,4 +30,4 @@ jobs:
       if: always()
       with:
         name: report_html
-        path: report_html.zip
+        path: playwright-report/
