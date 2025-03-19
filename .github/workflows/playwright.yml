@@ -19,12 +19,6 @@ jobs:
       if: always()
       run: |
         zip -r report_html.zip ${{ github.workspace }}/playwright-report/
-    - name: Upload zip with traces as artifact
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: tests_report
-        path: report.zip
     - name: Upload zip with html report as artifact
       uses: actions/upload-artifact@v4
       if: always()
