@@ -7,8 +7,8 @@ import { LoginForm } from "@pages/components/loginForm.component";
 export class PlayPage extends BasePage {
   readonly gameControls: GameControls = new GameControls(this.page);
   readonly loginForm: LoginForm = new LoginForm(this.page);
-  private loginButton: Locator = this.page.getByText('Login');
-  private readonly characterNameInput: Locator = this.page.getByPlaceholder('Galactic space lord');
+  private loginButton: Locator = this.page.getByTestId('login-button');
+  private readonly characterNameInput: Locator = this.page.getByRole('textbox', { name: 'Character name' });
   private readonly startButton: Locator = this.page.getByRole('button', { name: 'Start!' });
   public readonly levelStatSpan: Locator = this.page.locator('div[data-character-stats="Level"] span');
 

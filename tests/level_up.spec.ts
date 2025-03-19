@@ -20,7 +20,7 @@ test.describe('[Play][Level Up] Level up - Happy path', () => {
     // Click task with verification
     const targetClicks = await playPage.gameControls.getTargetClickCount();
     expect(targetClicks, 'Target click count should be greater than 0').toBeGreaterThan(0);
-    
+
     //TODO: move to actions
     for (let i = targetClicks; i > 0; i--) {
       await playPage.gameControls.performClicks(1);
@@ -32,7 +32,7 @@ test.describe('[Play][Level Up] Level up - Happy path', () => {
     await expect(playPage.levelStatSpan, 'Level after click task should be equal 2').toHaveText('2');
 
     // Upload task with verification
-    await playPage.gameControls.completeUploadTask({
+    await playPage.gameControls.doUploadTask({
       name: 'test.txt',
       mimeType: 'text/plain',
       buffer: Buffer.from('Test file content'),
@@ -41,12 +41,12 @@ test.describe('[Play][Level Up] Level up - Happy path', () => {
     await expect(playPage.levelStatSpan, 'Level after upload task should be equal 3').toHaveText('3');
 
     // Type task with verification
-    await playPage.gameControls.completeTypeTask('Lorem Ipsum');
+    await playPage.gameControls.doTypeTask('Lorem Ipsum');
     await expect(playPage.gameControls.typerSuccessMessage, `Typer success message should be "${EXPECTED_TYPER_SUCCESS_MESSAGE}"`).toHaveText(EXPECTED_TYPER_SUCCESS_MESSAGE);
     await expect(playPage.levelStatSpan, 'Level after typer task should be equal 4').toHaveText('4');
 
     // Slider task with verification
-    await playPage.gameControls.completeSlideTask('100');
+    await playPage.gameControls.doSlideTask('100');
     await expect(playPage.gameControls.sliderSuccessMessage, `Typer success message should be "${EXPECTED_SLIDER_SUCCESS_MESSAGE}"`).toHaveText(EXPECTED_SLIDER_SUCCESS_MESSAGE);
     await expect(playPage.gameControls.playAgainButton, 'Play again button should be visible').toBeVisible();
     await expect(playPage.levelStatSpan, 'Level after slider task should be equal 5').toHaveText('5');

@@ -1,10 +1,10 @@
 import { Page, Locator } from '@playwright/test';
 
 export class GameControls {
-    public readonly clickButton: Locator = this.page.getByRole('button', { name: 'Click me', exact: false });
-    public readonly playAgainButton: Locator = this.page.getByRole('button', { name: 'Play Again'});;
-    private readonly fileInput: Locator = this.page.locator('input[type="file"]');
-    private readonly textInput: Locator = this.page.locator('input:not([type="file"])').first();
+    public readonly clickButton: Locator = this.page.getByTestId('adventure-clicker').getByRole('button');
+    public readonly playAgainButton: Locator = this.page.getByRole('button', { name: 'Play Again' });;
+    private readonly fileInput: Locator = this.page.getByTestId('adventure-uploader').getByRole('textbox');
+    private readonly textInput: Locator = this.page.getByTestId('adventure-typer').getByRole('textbox');
     private readonly slider: Locator = this.page.getByRole('slider');
     public readonly maxLevelMessage: Locator = this.page.locator('span', { hasText: "You've reached the highest level!" });
     public readonly clickerSuccessMessage: Locator = this.page.locator('[data-task="clicker"]');
@@ -36,7 +36,7 @@ export class GameControls {
         return await this.clickButton.textContent();
     }
 
-    async completeUploadTask(file: {
+    async doUploadTask(file: {
         name: string,
         mimeType: string,
         buffer: Buffer
@@ -44,12 +44,12 @@ export class GameControls {
         await this.fileInput.setInputFiles(file);
     }
 
-    async completeTypeTask(textToType: string) {
+    async doTypeTask(textToType: string) {
         await this.textInput.fill(textToType);
     }
-    
+
     //TODO: refactor this method
-    async completeSlideTask(targetAmount: string) {
+    async doSlideTask(targetAmount: string) {
         const sliderBox = await this.slider.boundingBox();
         if (!sliderBox) {
             throw new Error('Slider bounding box not found');
